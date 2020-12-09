@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book API</title>
+    <link rel="icon" type="image/png" href="assets/icon.png" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="nav-container">
+        <a href="" class="nav-brand"><img src="assets/icon.png" alt="" /></a>
+      </div>
+    </div> -->
+    <div class="container">
+      <div id="title" class="text-center mt-5">Book Finder</div>
+      <div class="row">
+        <div id="input" class="input-group mx-auto col-lg-6 col-md-8 col-sm-12">
+          <input
+            class="form-control"
+            placeholder="Search Books!..."
+            type="text"
+            id="search-box"
+          />
+          <button id="search" class="btn btn-primary" onclick="">Search</button>
+        </div>
+      </div>
+    </div>
+    <div id="book-list">
+      <h2 class="text-text">Search Results</h2>
+      <!-- <nav>
+        <button class="prev">Previous 10</button>
+        <button class="next">Next 10</button>
+      </nav> -->
+      <div id="list-output">
+        <div class="row">
+          <ul id="list-group"></ul>
+          <div class="card" style="width: 18em"></div>
+        </div>
+        <!-- <div class="row">
+          <div class="card" style="width: 18rem"></div>
+        </div> -->
+      </div>
+    </div>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script src="api.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+body {
+  background-image: url(assets/books.jpg);
+  background-color: #017199;
+  height: 120vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Muli", sans-serif;
+}
+
+#title {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  font-weight: bolder;
+}
+
+.book-list {
+  margin-top: 50px;
+  visibility: hidden;
+}
+#list-group {
+  opacity: 0.5;
+  max-width: 40vw;
+}
+.list-group-item:hover {
+  background: #72afb7;
+  cursor: pointer;
+  opacity: 1;
+}
+.list-group-item {
+  opacity: 1;
+  font-size: 14px;
+}
+li {
+  font-size: 18px;
+  z-index: 5;
+  list-style-type: none;
+}
+
+.text-text {
+  margin-left: 1em;
+}
+.card {
+  visibility: hidden;
+  margin-left: 5rem;
+}
+
+#list-group:hover + .card {
+  /*would like this to target the list-group-items but not working*/
+  display: block;
+  visibility: visible;
+}
