@@ -43,10 +43,12 @@ li {
 .card {
   visibility: hidden;
   margin-left: 5rem;
+  width: 500px;
 }
 
 #list-group:hover + .card {
   /*would like this to target the list-group-items but not working*/
   display: block;
   visibility: visible;
+  width: 500px;
 }
