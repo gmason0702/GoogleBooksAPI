@@ -5,7 +5,7 @@ const dispBooks = document.getElementById("list-group");
 const bookListId = document.getElementById("book-list");
 const nextBtn = document.querySelector(".next");
 const previousBtn = document.querySelector(".prev");
-const detailsCard = document.querySelector("card");
+const detailsCard = document.querySelector(".card");
 //const cardBody = document.querySelector("card-body");
 // const listGroupItem = document.querySelector("list-group-item");
 
@@ -58,7 +58,7 @@ function fetchResults(e) {
   // });
 }
 
-async function displayResults(results) {
+function displayResults(results) {
   const bookList = results.items;
   //console.log(bookList);
 
@@ -74,18 +74,24 @@ async function displayResults(results) {
   for (let i = 0; i < bookList.length; i++) {
     const cardInfo = document.createElement("div");
     cardInfo.classList.add("card-body");
+    detailsCard.appendChild(cardInfo);
 
     const bookImage = document.createElement("img");
     bookImage.classList.add("card-img-top");
+    detailsCard.appendChild(bookImage);
 
     const cardTitle = document.createElement("h5");
     cardTitle.classList.add("card-title");
+    cardInfo.appendChild(cardTitle);
 
     const cardBlurb = document.createElement("p");
     cardBlurb.classList.add("card-text");
+    cardInfo.appendChild(cardBlurb);
 
     const previewBtn = document.createElement("a");
     previewBtn.classList.add("btn", "btn-primary");
+    cardInfo.appendChild(previewBtn);
+
     const book = document.createElement("li");
     const current = bookList[i];
     //console.log(current);
@@ -111,16 +117,11 @@ async function displayResults(results) {
     console.log(bookImage);
     dispBooks.appendChild(book);
   }
-  detailsCard.appendChild(cardInfo);
-  detailsCard.appendChild(bookImage);
-  cardInfo.appendChild(cardTitle);
-  cardInfo.appendChild(cardBlurb);
-  cardInfo.appendChild(previewBtn);
-  await listGroupItem.addEventListener("mouseover", function (e) {
-    if (e.target && e.target.matches("li.list-group-item")) {
-      listGroupItem.style.visibility = "visible";
-    } // how to add an eventListener to an element that doesn't exist yet
-  });
+  // await listGroupItem.addEventListener("mouseover", function (e) {
+  //   if (e.target && e.target.matches("li.list-group-item")) {
+  //     listGroupItem.style.visibility = "visible";
+  //   } // how to add an eventListener to an element that doesn't exist yet
+  // });
 
   // const bookList = results.items;
   console.log(bookList);
