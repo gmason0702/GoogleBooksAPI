@@ -70,22 +70,22 @@ async function displayResults(results) {
     para.textContent = "No results found.";
     bookList.appendChild(para);
   }
-  const cardInfo = document.createElement("div");
-  cardInfo.classList.add("card-body");
-
-  const bookImage = document.createElement("img");
-  bookImage.classList.add("card-img-top");
-
-  const cardTitle = document.createElement("h5");
-  cardTitle.classList.add("card-title");
-
-  const cardBlurb = document.createElement("p");
-  cardBlurb.classList.add("card-text");
-
-  const previewBtn = document.createElement("a");
-  previewBtn.classList.add("btn", "btn-primary");
 
   for (let i = 0; i < bookList.length; i++) {
+    const cardInfo = document.createElement("div");
+    cardInfo.classList.add("card-body");
+
+    const bookImage = document.createElement("img");
+    bookImage.classList.add("card-img-top");
+
+    const cardTitle = document.createElement("h5");
+    cardTitle.classList.add("card-title");
+
+    const cardBlurb = document.createElement("p");
+    cardBlurb.classList.add("card-text");
+
+    const previewBtn = document.createElement("a");
+    previewBtn.classList.add("btn", "btn-primary");
     const book = document.createElement("li");
     const current = bookList[i];
     //console.log(current);
@@ -93,35 +93,34 @@ async function displayResults(results) {
     book.classList.add("list-group-item");
     book.innerHTML = current.volumeInfo.title;
     let listGroupItem = document.querySelector(".list-group-item");
-    for (let j = 0; j < 11; j++) {
-      if (current.volumeInfo.imageLinks.smallThumbnail != null) {
-        bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
-        bookImage.alt = placeHolder;
-      } else {
-        bookImage.src.innerHTML = placeHolder; //might not need the .innerHTML
-        bookImage.alt.innerHTML = placeHolder;
-      }
 
-      cardTitle.innerHTML = `${current.volumeInfo.title}`;
-      cardBlurb.innerHTML = `${current.volumeInfo.description}`;
-      previewBtn.innerHTML = `${current.volumeInfo.previewLink}`;
-      console.log(cardTitle);
-      console.log(cardBlurb);
-      console.log(bookImage);
+    if (current.volumeInfo.imageLinks.smallThumbnail != null) {
+      bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
+      bookImage.alt = placeHolder;
+    } else {
+      bookImage.src.innerHTML = placeHolder; //might not need the .innerHTML
+      bookImage.alt.innerHTML = placeHolder;
     }
+
+    cardTitle.innerHTML = `${current.volumeInfo.title}`;
+    cardBlurb.innerHTML = `${current.volumeInfo.description}`;
+    previewBtn.innerHTML = `${current.volumeInfo.previewLink}`;
     console.log(book);
+    console.log(cardTitle);
+    console.log(cardBlurb);
+    console.log(bookImage);
+    dispBooks.appendChild(book);
   }
-  dispBooks.appendChild(book);
-  await listGroupItem.addEventListener("mouseover", function (e) {
-    if (e.target && e.target.matches("li.list-group-item")) {
-      listGroupItem.style.visibility = "visible";
-    } // how to add an eventListener to an element that doesn't exist yet
-  });
   detailsCard.appendChild(cardInfo);
   detailsCard.appendChild(bookImage);
   cardInfo.appendChild(cardTitle);
   cardInfo.appendChild(cardBlurb);
   cardInfo.appendChild(previewBtn);
+  await listGroupItem.addEventListener("mouseover", function (e) {
+    if (e.target && e.target.matches("li.list-group-item")) {
+      listGroupItem.style.visibility = "visible";
+    } // how to add an eventListener to an element that doesn't exist yet
+  });
 
   // const bookList = results.items;
   console.log(bookList);
