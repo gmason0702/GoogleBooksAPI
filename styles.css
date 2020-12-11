@@ -51,13 +51,14 @@ nav ul li {
 #brand .nav-link:hover {
   font-weight: bold;
 } */
-
 #title {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: bolder;
 }
-
+#search {
+  left: 0%;
+}
 .book-list {
   margin-top: 50px;
   visibility: hidden;
@@ -98,4 +99,34 @@ li {
   display: block;
   visibility: visible;
   width: 500px;
+}
+
+.card-img-top {
+  height: 200px;
+  width: 40px;
+}
+/* 
+.btn btn-primary {
+  position: relative;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+} */
+.btn-primary:last-child {
+  position: relative;
+  left: 15%;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.card-title {
+  position: relative;
+  text-align: center;
+  margin-bottom: 5px !important;
+}
+
+.card-text {
+  font-size: 14px;
+  margin-top: 0px;
 }

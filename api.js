@@ -38,6 +38,7 @@ function submitSearch(e) {
 
 function fetchResults(e) {
   dispBooks.innerHTML = "";
+  detailsCard.innerHTML = "";
 
   url = baseUrl + searchBox.value;
   console.log(url);
@@ -72,13 +73,12 @@ function displayResults(results) {
   }
 
   for (let i = 0; i < bookList.length; i++) {
-    const cardInfo = document.createElement("div");
-    cardInfo.classList.add("card-body");
-    detailsCard.appendChild(cardInfo);
-
     const bookImage = document.createElement("img");
     bookImage.classList.add("card-img-top");
     detailsCard.appendChild(bookImage);
+    const cardInfo = document.createElement("div");
+    cardInfo.classList.add("card-body");
+    detailsCard.appendChild(cardInfo);
 
     const cardTitle = document.createElement("h5");
     cardTitle.classList.add("card-title");
@@ -107,10 +107,18 @@ function displayResults(results) {
       bookImage.src.innerHTML = placeHolder; //might not need the .innerHTML
       bookImage.alt.innerHTML = placeHolder;
     }
-
     cardTitle.innerHTML = `${current.volumeInfo.title}`;
     cardBlurb.innerHTML = `${current.volumeInfo.description}`;
-    previewBtn.innerHTML = `${current.volumeInfo.previewLink}`;
+    // previousBtn.innerText = ??
+    previewBtn.href = current.volumeInfo.previewLink;
+    previewBtn.textContent = "Preview this book";
+    let maxLength = 300;
+    if (cardBlurb.innerHTML.length > maxLength) {
+      cardBlurb.innerHTML = cardBlurb.innerHTML
+        .slice(0, maxLength)
+        .concat("...");
+    }
+
     console.log(book);
     console.log(cardTitle);
     console.log(cardBlurb);
