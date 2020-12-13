@@ -30,6 +30,7 @@ searchButton.addEventListener("keypress", function (e) {
 let pageNumber = 0;
 
 bookListId.style.visibility = "hidden";
+detailsCard.style.visibility = "hidden";
 //detailsCard.style.visibility = "hidden";
 
 function submitSearch(e) {
@@ -73,6 +74,13 @@ function displayResults(results) {
   }
 
   for (let i = 0; i < bookList.length; i++) {
+    const detailsCard = document.querySelector(".card");
+    const cardRow = document.querySelector("#card__row");
+
+    // bookList.forEach((element) => {
+    //   cardRow.appendChild(detailsCard);
+    // });
+    // cardRow.appendChild(detailsCard);
     const bookImage = document.createElement("img");
     bookImage.classList.add("card-img-top");
     detailsCard.appendChild(bookImage);
@@ -98,7 +106,6 @@ function displayResults(results) {
 
     book.classList.add("list-group-item");
     book.innerHTML = current.volumeInfo.title;
-    let listGroupItem = document.querySelector(".list-group-item");
 
     if (current.volumeInfo.imageLinks.smallThumbnail != null) {
       bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
@@ -111,6 +118,7 @@ function displayResults(results) {
     cardBlurb.innerHTML = `${current.volumeInfo.description}`;
     // previousBtn.innerText = ??
     previewBtn.href = current.volumeInfo.previewLink;
+    previewBtn.setAttribute("target", "_blank");
     previewBtn.textContent = "Preview this book";
     let maxLength = 300;
     if (cardBlurb.innerHTML.length > maxLength) {
@@ -124,12 +132,34 @@ function displayResults(results) {
     console.log(cardBlurb);
     console.log(bookImage);
     dispBooks.appendChild(book);
+    book.addEventListener("click", function () {
+      if (bookList.length > 0) {
+        detailsCard.style.visibility = "visible";
+      } // how to add an eventListener to an element that doesn't exist yet
+    });
+    // book.addEventListener("mouseover", function () {
+    //   if (bookList.length > 0) {
+    //     detailsCard.style.visibility = "visible";
+    //   }
+    // });
+    // book.addEventListener("mouseout", function () {
+    //   if (bookList.length > 0) {
+    //     detailsCard.style.visibility = "hidden";
+    //   }
+    // });
   }
-  // await listGroupItem.addEventListener("mouseover", function (e) {
-  //   if (e.target && e.target.matches("li.list-group-item")) {
-  //     listGroupItem.style.visibility = "visible";
-  //   } // how to add an eventListener to an element that doesn't exist yet
-  // });
+  // let listGroupItem = dispBooks.getElementsByClassName("list-group-item");       //would like to use this to help with getting individual card
+
+  // for (let l = 0; l < listGroupItem.length; l++) {
+  //   listGroupItem[0].addEventListener("click", function () {
+  //     let currentLI = document.getElementsByClassName("active");
+
+  //     if (currentLi.length > 0) {
+  //       currentLI[0].className = currentLI[0].className.replace(" active", "");
+  //     }
+  //     this.className += " active";
+  //   });
+  // }
 
   // const bookList = results.items;
   console.log(bookList);

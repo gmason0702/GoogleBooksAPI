@@ -90,17 +90,22 @@ li {
   margin-left: 0.8em;
 }
 .card {
-  visibility: hidden;
+  /* visibility: hidden; */
   margin-left: 5rem;
   width: 500px;
 }
 
-#list-group:hover + .card {
+/* #list-group:hover + .card {
   display: block;
   visibility: visible;
   width: 500px;
-}
+} */
 
+.active,
+.list-group-item:hover {
+  background-color: #666;
+  color: white;
+}
 .card-img-top {
   height: 200px;
   width: 40px;
