@@ -9,13 +9,29 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <nav class="navbar">
+      <ul>
+        <li id="brand">
+          <a href="#home" id="brandId" class="nav-link">TheLIBRARY</a>
+        </li>
+        <li>
+          <a
+            href="https://developers.google.com/books/docs/overview"
+            target="_blank"
+            class="nav-link"
+            >Documentation</a
+          >
+        </li>
+      </ul>
+    </nav>
+
     <!-- <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="nav-container">
         <a href="" class="nav-brand"><img src="assets/icon.png" alt="" /></a>
       </div>
     </div> -->
     <div class="container">
-      <div id="title" class="text-center mt-5">Book Finder</div>
+      <div id="title" class="text-center mt-2">Book Finder</div>
       <div class="row">
         <div id="input" class="input-group mx-auto col-lg-6 col-md-8 col-sm-12">
           <input
@@ -28,6 +44,7 @@
         </div>
       </div>
     </div>
+
     <div id="book-list">
       <h2 class="text-text">Search Results</h2>
       <!-- <nav>
@@ -35,13 +52,12 @@
         <button class="next">Next 10</button>
       </nav> -->
       <div id="list-output">
-        <div class="row">
-          <ul id="list-group"></ul>
+        <div class="row" id="card__row">
+          <ul id="list-group">
+            <!-- <li class="list-group-item"></li> -->
+          </ul>
           <div class="card" style="width: 18em"></div>
         </div>
-        <!-- <div class="row">
-          <div class="card" style="width: 18rem"></div>
-        </div> -->
       </div>
     </div>
     <link

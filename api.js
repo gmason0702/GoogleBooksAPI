@@ -5,9 +5,10 @@ const dispBooks = document.getElementById("list-group");
 const bookListId = document.getElementById("book-list");
 const nextBtn = document.querySelector(".next");
 const previousBtn = document.querySelector(".prev");
-const listGroupItem = document.querySelector("list-group-item");
-const detailsCard = document.querySelector("card");
-// const cardBody = document.querySelector("card-body");
+const detailsCard = document.querySelector(".card");
+//const cardBody = document.querySelector("card-body");
+// const listGroupItem = document.querySelector("list-group-item");
+
 const baseUrl = "https://www.googleapis.com/books/v1/volumes?q=";
 const placeHolder =
   "https://voice.global/wp-content/plugins/wbb-publications/public/assets/img/placeholder.jpg";
@@ -18,17 +19,19 @@ let _totalResults = 0;
 // nextBtn.addEventListener("click", nextPage);
 // previousBtn.addEventListener("click", previousPage);
 searchButton.addEventListener("click", submitSearch);
-listGroupItem.addEventListener("mouseover", getDetails); // how to add an eventListener to an element that doesn't exist yet
+//listGroupItem.addEventListener("mouseover", getDetails);          // how to add an eventListener to an element that doesn't exist yet?
 
-// searchButton.addEventListener("keypress", function (e) {             //why not??
-//   if (e.key === "Enter") {
-//     submitSearch;
-//   }
-// });
+searchButton.addEventListener("keypress", function (e) {
+  //why not??
+  if (e.key === "Enter") {
+    submitSearch;
+  }
+});
 let pageNumber = 0;
 
 bookListId.style.visibility = "hidden";
 detailsCard.style.visibility = "hidden";
+//detailsCard.style.visibility = "hidden";
 
 function submitSearch(e) {
   fetchResults(e);
@@ -36,6 +39,7 @@ function submitSearch(e) {
 
 function fetchResults(e) {
   dispBooks.innerHTML = "";
+  detailsCard.innerHTML = "";
 
   url = baseUrl + searchBox.value;
   console.log(url);
@@ -45,16 +49,20 @@ function fetchResults(e) {
       return result.json();
     })
     .then(function (json) {
-      //   console.log(json);
+      console.log(json);
       displayResults(json);
-      getDetails(json);
+      //getDetails(json);
       //   createPagination(json);
     });
+  // .then(function (details) {
+  //   console.log(details);
+  //   getDetails(details);
+  // });
 }
 
 function displayResults(results) {
   const bookList = results.items;
-  //   console.log(bookList);
+  //console.log(bookList);
 
   if (bookList.length != 0 || bookList.length != null) {
     bookListId.style.visibility = "visible";
@@ -66,49 +74,101 @@ function displayResults(results) {
   }
 
   for (let i = 0; i < bookList.length; i++) {
+    const detailsCard = document.querySelector(".card");
+    const cardRow = document.querySelector("#card__row");
+
+    // bookList.forEach((element) => {
+    //   cardRow.appendChild(detailsCard);
+    // });
+    // cardRow.appendChild(detailsCard);
+    const bookImage = document.createElement("img");
+    bookImage.classList.add("card-img-top");
+    detailsCard.appendChild(bookImage);
+    const cardInfo = document.createElement("div");
+    cardInfo.classList.add("card-body");
+    detailsCard.appendChild(cardInfo);
+
+    const cardTitle = document.createElement("h5");
+    cardTitle.classList.add("card-title");
+    cardInfo.appendChild(cardTitle);
+
+    const cardBlurb = document.createElement("p");
+    cardBlurb.classList.add("card-text");
+    cardInfo.appendChild(cardBlurb);
+
+    const previewBtn = document.createElement("a");
+    previewBtn.classList.add("btn", "btn-primary");
+    cardInfo.appendChild(previewBtn);
+
     const book = document.createElement("li");
-
     const current = bookList[i];
-    console.log(current);
-    book.innerHTML = `<li class = "list-group-item"> ${current.volumeInfo.title}</li>`;
-    console.log(book);
-    dispBooks.appendChild(book);
-  }
-}
+    //console.log(current);
 
-function getDetails(results) {
-  const bookList = results.items;
-  const cardInfo = document.createElement("div");
-  const bookImage = document.createElement("img");
-  const cardTitle = document.createElement("h5");
-  const cardBlurb = document.createElement("p");
-  const previewBtn = document.createElement("a");
-
-  for (let i = 0; i < bookList.length; i++) {
-    const current = bookList[i];
+    book.classList.add("list-group-item");
+    book.innerHTML = current.volumeInfo.title;
 
     if (current.volumeInfo.imageLinks.smallThumbnail != null) {
-      bookImage.innerHTML = `<img class="card-img-top" src="${current.volumeInfo.imageLinks.smallThumbnail}" alt="${placeHolder}">`;
-    } else {
-      bookImage.src = placeHolder;
+      bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
       bookImage.alt = placeHolder;
+    } else {
+      bookImage.src.innerHTML = placeHolder; //might not need the .innerHTML
+      bookImage.alt.innerHTML = placeHolder;
+    }
+    cardTitle.innerHTML = `${current.volumeInfo.title}`;
+    cardBlurb.innerHTML = `${current.volumeInfo.description}`;
+    // previousBtn.innerText = ??
+    previewBtn.href = current.volumeInfo.previewLink;
+    previewBtn.setAttribute("target", "_blank");
+    previewBtn.textContent = "Preview this book";
+    let maxLength = 300;
+    if (cardBlurb.innerHTML.length > maxLength) {
+      cardBlurb.innerHTML = cardBlurb.innerHTML
+        .slice(0, maxLength)
+        .concat("...");
     }
 
-    cardInfo.innerHTML = `<div class="card-body">`;
-    bookImage.innerHTML = `<img class="card-img-top" src="${current.volumeInfo.imageLinks.smallThumbnail}" alt="${placeHolder}">`;
-    cardTitle.innerHTML = `<h5 class="card-title">${current.volumeInfo.title}</h5>`;
-    cardBlurb.innerHTML = `<p class="card-text">${current.volumeInfo.description}</p>`;
-    previewBtn.innerHTML = ` <a href="${current.volumeInfo.previewLink}" class="btn btn-primary">Book Preview</a>`;
+    console.log(book);
     console.log(cardTitle);
     console.log(cardBlurb);
     console.log(bookImage);
-    detailsCard.appendChild(cardInfo);
-    detailsCard.appendChild(bookImage);
-    cardInfo.appendChild(cardTitle);
-    cardInfo.appendChild(cardBlurb);
-    cardInfo.appendChild(previewBtn);
+    dispBooks.appendChild(book);
+    book.addEventListener("click", function () {
+      if (bookList.length > 0) {
+        detailsCard.style.visibility = "visible";
+      } // how to add an eventListener to an element that doesn't exist yet
+    });
+    // book.addEventListener("mouseover", function () {
+    //   if (bookList.length > 0) {
+    //     detailsCard.style.visibility = "visible";
+    //   }
+    // });
+    // book.addEventListener("mouseout", function () {
+    //   if (bookList.length > 0) {
+    //     detailsCard.style.visibility = "hidden";
+    //   }
+    // });
   }
+  // let listGroupItem = dispBooks.getElementsByClassName("list-group-item");       //would like to use this to help with getting individual card
+
+  // for (let l = 0; l < listGroupItem.length; l++) {
+  //   listGroupItem[0].addEventListener("click", function () {
+  //     let currentLI = document.getElementsByClassName("active");
+
+  //     if (currentLi.length > 0) {
+  //       currentLI[0].className = currentLI[0].className.replace(" active", "");
+  //     }
+  //     this.className += " active";
+  //   });
+  // }
+
+  // const bookList = results.items;
+  console.log(bookList);
 }
+
+// function getDetails(results) {
+//   //   const listGroupItem = document.querySelector("list-group-item");
+//   //   listGroupItem.addEventListener("mouseover", getDetails); // how to add an eventListener to an element that doesn't exist yet?
+// }
 // function createPagination(json) {
 //   if (_startIndex == 0 && _totalResults > _maxResults) {
 //     let _previousIndex = _startIndex;

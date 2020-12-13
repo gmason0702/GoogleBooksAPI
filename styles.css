@@ -7,13 +7,58 @@ body {
   background-size: cover;
   font-family: "Muli", sans-serif;
 }
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  z-index: 1;
+  display: table;
+  margin-left: -2.8rem;
+}
 
+nav ul li {
+  float: right;
+  margin-right: 38px;
+  list-style-type: none;
+  text-align: center;
+}
+
+#brand {
+  float: left;
+  cursor: default;
+}
+
+.nav-link {
+  float: right;
+  text-decoration: none;
+  color: black;
+}
+/* 
+.nav-link:hover {
+  font-weight: bold;
+} */
+
+#brand .nav-link {
+  font-size: 14pt;
+}
+#brandId:hover {
+  color: black;
+  cursor: default;
+}
+/* 
+#brand .nav-link:hover {
+  font-weight: bold;
+} */
 #title {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: bolder;
 }
-
+#search {
+  left: 0%;
+}
 .book-list {
   margin-top: 50px;
   visibility: hidden;
@@ -31,6 +76,10 @@ body {
   opacity: 1;
   font-size: 14px;
 }
+
+/* .list-group-item:hover + card {
+  visibility: visible;
+} */
 li {
   font-size: 18px;
   z-index: 5;
@@ -38,15 +87,51 @@ li {
 }
 
 .text-text {
-  margin-left: 1em;
+  margin-left: 0.8em;
 }
 .card {
-  visibility: hidden;
+  /* visibility: hidden; */
   margin-left: 5rem;
+  width: 500px;
 }
 
-#list-group:hover + .card {
-  /*would like this to target the list-group-items but not working*/
+/* #list-group:hover + .card {
   display: block;
   visibility: visible;
+  width: 500px;
+} */
+
+.active,
+.list-group-item:hover {
+  background-color: #666;
+  color: white;
+}
+.card-img-top {
+  height: 200px;
+  width: 40px;
+}
+/* 
+.btn btn-primary {
+  position: relative;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+} */
+.btn-primary:last-child {
+  position: relative;
+  left: 15%;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.card-title {
+  position: relative;
+  text-align: center;
+  margin-bottom: 5px !important;
+}
+
+.card-text {
+  font-size: 14px;
+  margin-top: 0px;
 }
