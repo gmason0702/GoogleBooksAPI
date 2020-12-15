@@ -3,6 +3,7 @@ const searchButton = document.getElementById("search");
 const searchBox = document.getElementById("search-box");
 const dispBooks = document.getElementById("list-group");
 const bookListId = document.getElementById("book-list");
+const cardRow = document.getElementById("card__row");
 const nextBtn = document.querySelector(".next");
 const previousBtn = document.querySelector(".prev");
 const detailsCard = document.querySelector(".card");
@@ -19,7 +20,6 @@ let _totalResults = 0;
 // nextBtn.addEventListener("click", nextPage);
 // previousBtn.addEventListener("click", previousPage);
 searchButton.addEventListener("click", submitSearch);
-//listGroupItem.addEventListener("mouseover", getDetails);          // how to add an eventListener to an element that doesn't exist yet?
 
 searchButton.addEventListener("keypress", function (e) {
   //why not??
@@ -38,11 +38,10 @@ function submitSearch(e) {
 }
 
 function fetchResults(e) {
-  dispBooks.innerHTML = "";
+  // dispBooks.innerHTML = "";
   detailsCard.innerHTML = "";
 
   url = baseUrl + searchBox.value;
-  console.log(url);
 
   fetch(url)
     .then(function (result) {
@@ -51,19 +50,18 @@ function fetchResults(e) {
     .then(function (json) {
       console.log(json);
       displayResults(json);
-      //getDetails(json);
       //   createPagination(json);
     });
-  // .then(function (details) {
-  //   console.log(details);
-  //   getDetails(details);
-  // });
 }
 
 function displayResults(results) {
+  //REFRESHING PAGE EACH SEARCH CLICK
+  while (dispBooks.firstChild) {
+    dispBooks.removeChild(dispBooks.firstChild);
+  }
   const bookList = results.items;
-  //console.log(bookList);
 
+  //CHANGING VISIBILITY OF UL ELEMENT BASED ON RETURN VALUE
   if (bookList.length != 0 || bookList.length != null) {
     bookListId.style.visibility = "visible";
   }
@@ -75,38 +73,70 @@ function displayResults(results) {
 
   for (let i = 0; i < bookList.length; i++) {
     const detailsCard = document.querySelector(".card");
-    const cardRow = document.querySelector("#card__row");
 
-    // bookList.forEach((element) => {
+    //CREATING ADDITIONAL CARD DIVS TO HOLD EACH CARD DETAIL....OR SHOULD I ONLY NEED ONE AND JUST CONDITIONAL RETURN?
+    // const additionalDivs = document.createElement("div");
+    // outputList.insertAdjacentElement("beforeend", additionalDivs);
+    // additionalDivs.classList.add("card");
+    // additionalDivs.style.width = "18em";
+
+    // bookList.forEach(() => {
     //   cardRow.appendChild(detailsCard);
     // });
     // cardRow.appendChild(detailsCard);
+
+    //CREATING AND APPENDING CARD INFORMATION
     const bookImage = document.createElement("img");
     bookImage.classList.add("card-img-top");
-    detailsCard.appendChild(bookImage);
+    // detailsCard.appendChild(bookImage);
+
     const cardInfo = document.createElement("div");
     cardInfo.classList.add("card-body");
-    detailsCard.appendChild(cardInfo);
+    // detailsCard.appendChild(cardInfo);
 
     const cardTitle = document.createElement("h5");
     cardTitle.classList.add("card-title");
-    cardInfo.appendChild(cardTitle);
+
+    const cardAuthor = document.createElement("h6");
+    cardAuthor.classList.add("card-author");
+    // cardInfo.appendChild(cardTitle);
 
     const cardBlurb = document.createElement("p");
     cardBlurb.classList.add("card-text");
-    cardInfo.appendChild(cardBlurb);
+    // cardInfo.appendChild(cardBlurb);
 
     const previewBtn = document.createElement("a");
     previewBtn.classList.add("btn", "btn-primary");
-    cardInfo.appendChild(previewBtn);
+    // cardInfo.appendChild(previewBtn);
 
+    //CREATING LIST ITEMS
     const book = document.createElement("li");
     const current = bookList[i];
     //console.log(current);
 
     book.classList.add("list-group-item");
     book.innerHTML = current.volumeInfo.title;
+    dispBooks.appendChild(book);
 
+    //TRYING TO GET EACH LI ELEMENT ON CLICK
+    for (let i = 0; i < book.length; i++) {
+      book.onclick = function () {
+        console.log(book);
+      };
+    }
+    book.onclick = function () {
+      if (book.innerHTML == cardTitle.innerHTML) {
+        detailsCard.appendChild(bookImage);
+        detailsCard.appendChild(cardInfo);
+        cardInfo.appendChild(cardTitle);
+        cardInfo.appendChild(cardAuthor);
+        cardInfo.appendChild(cardBlurb);
+        cardInfo.appendChild(previewBtn);
+      }
+      console.log(book);
+    };
+
+    //CHECKING IF BOOK HAS AN IMAGE, RETURNING PLACEHOLDER IF NOT
     if (current.volumeInfo.imageLinks.smallThumbnail != null) {
       bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
       bookImage.alt = placeHolder;
@@ -115,23 +145,23 @@ function displayResults(results) {
       bookImage.alt.innerHTML = placeHolder;
     }
     cardTitle.innerHTML = `${current.volumeInfo.title}`;
+    cardAuthor.innerHTML = `By   ${current.volumeInfo.authors}`;
     cardBlurb.innerHTML = `${current.volumeInfo.description}`;
     // previousBtn.innerText = ??
     previewBtn.href = current.volumeInfo.previewLink;
     previewBtn.setAttribute("target", "_blank");
     previewBtn.textContent = "Preview this book";
-    let maxLength = 300;
+    let maxLength = 200;
     if (cardBlurb.innerHTML.length > maxLength) {
       cardBlurb.innerHTML = cardBlurb.innerHTML
         .slice(0, maxLength)
         .concat("...");
     }
 
-    console.log(book);
-    console.log(cardTitle);
-    console.log(cardBlurb);
-    console.log(bookImage);
-    dispBooks.appendChild(book);
+    // console.log(book);
+    // console.log(cardTitle);
+    // console.log(cardBlurb);
+    // console.log(bookImage);
     book.addEventListener("click", function () {
       if (bookList.length > 0) {
         detailsCard.style.visibility = "visible";
@@ -165,15 +195,16 @@ function displayResults(results) {
   console.log(bookList);
 }
 
-// function getDetails(results) {
-//   //   const listGroupItem = document.querySelector("list-group-item");
-//   //   listGroupItem.addEventListener("mouseover", getDetails); // how to add an eventListener to an element that doesn't exist yet?
-// }
 // function createPagination(json) {
 //   if (_startIndex == 0 && _totalResults > _maxResults) {
 //     let _previousIndex = _startIndex;
 //     _startIndex = _startIndex + _maxResults;
 
-//     //unfinished
-//   }
-// }
+// for (var i = 0, len = g.children.length; i < len; i++)
+// {
+
+//     (function(index){
+//         g.children[i].onclick = function(){
+//               alert(index)  ;
+//         }
+//     })(i);
