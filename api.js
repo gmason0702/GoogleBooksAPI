@@ -7,9 +7,6 @@ const cardRow = document.getElementById("card__row");
 const nextBtn = document.querySelector(".next");
 const previousBtn = document.querySelector(".prev");
 const detailsCard = document.querySelector(".card");
-//const cardBody = document.querySelector("card-body");
-// const listGroupItem = document.querySelector("list-group-item");
-
 const baseUrl = "https://www.googleapis.com/books/v1/volumes?q=";
 const placeHolder =
   "https://voice.global/wp-content/plugins/wbb-publications/public/assets/img/placeholder.jpg";
@@ -31,10 +28,10 @@ let pageNumber = 0;
 
 bookListId.style.visibility = "hidden";
 detailsCard.style.visibility = "hidden";
-//detailsCard.style.visibility = "hidden";
 
 function submitSearch(e) {
   fetchResults(e);
+  detailsCard.style.visibility = "hidden";
 }
 
 function fetchResults(e) {
@@ -60,6 +57,7 @@ function displayResults(results) {
     dispBooks.removeChild(dispBooks.firstChild);
   }
   const bookList = results.items;
+  detailsCard.innerHTML = "";
 
   //CHANGING VISIBILITY OF UL ELEMENT BASED ON RETURN VALUE
   if (bookList.length != 0 || bookList.length != null) {
@@ -74,58 +72,39 @@ function displayResults(results) {
   for (let i = 0; i < bookList.length; i++) {
     const detailsCard = document.querySelector(".card");
 
-    //CREATING ADDITIONAL CARD DIVS TO HOLD EACH CARD DETAIL....OR SHOULD I ONLY NEED ONE AND JUST CONDITIONAL RETURN?
-    // const additionalDivs = document.createElement("div");
-    // outputList.insertAdjacentElement("beforeend", additionalDivs);
-    // additionalDivs.classList.add("card");
-    // additionalDivs.style.width = "18em";
-
-    // bookList.forEach(() => {
-    //   cardRow.appendChild(detailsCard);
-    // });
-    // cardRow.appendChild(detailsCard);
-
-    //CREATING AND APPENDING CARD INFORMATION
+    //CREATING CARD INFORMATION
     const bookImage = document.createElement("img");
     bookImage.classList.add("card-img-top");
-    // detailsCard.appendChild(bookImage);
 
     const cardInfo = document.createElement("div");
     cardInfo.classList.add("card-body");
-    // detailsCard.appendChild(cardInfo);
 
     const cardTitle = document.createElement("h5");
     cardTitle.classList.add("card-title");
 
     const cardAuthor = document.createElement("h6");
     cardAuthor.classList.add("card-author");
-    // cardInfo.appendChild(cardTitle);
 
     const cardBlurb = document.createElement("p");
     cardBlurb.classList.add("card-text");
-    // cardInfo.appendChild(cardBlurb);
 
     const previewBtn = document.createElement("a");
     previewBtn.classList.add("btn", "btn-primary");
-    // cardInfo.appendChild(previewBtn);
 
     //CREATING LIST ITEMS
     const book = document.createElement("li");
     const current = bookList[i];
-    //console.log(current);
 
     book.classList.add("list-group-item");
     book.innerHTML = current.volumeInfo.title;
     dispBooks.appendChild(book);
 
     //TRYING TO GET EACH LI ELEMENT ON CLICK
-    for (let i = 0; i < book.length; i++) {
-      book.onclick = function () {
-        console.log(book);
-      };
-    }
+
     book.onclick = function () {
       if (book.innerHTML == cardTitle.innerHTML) {
+        detailsCard.innerHTML = "";
+
         detailsCard.appendChild(bookImage);
         detailsCard.appendChild(cardInfo);
         cardInfo.appendChild(cardTitle);
@@ -157,7 +136,6 @@ function displayResults(results) {
         .slice(0, maxLength)
         .concat("...");
     }
-
     // console.log(book);
     // console.log(cardTitle);
     // console.log(cardBlurb);
@@ -167,32 +145,7 @@ function displayResults(results) {
         detailsCard.style.visibility = "visible";
       } // how to add an eventListener to an element that doesn't exist yet
     });
-    // book.addEventListener("mouseover", function () {
-    //   if (bookList.length > 0) {
-    //     detailsCard.style.visibility = "visible";
-    //   }
-    // });
-    // book.addEventListener("mouseout", function () {
-    //   if (bookList.length > 0) {
-    //     detailsCard.style.visibility = "hidden";
-    //   }
-    // });
   }
-  // let listGroupItem = dispBooks.getElementsByClassName("list-group-item");       //would like to use this to help with getting individual card
-
-  // for (let l = 0; l < listGroupItem.length; l++) {
-  //   listGroupItem[0].addEventListener("click", function () {
-  //     let currentLI = document.getElementsByClassName("active");
-
-  //     if (currentLi.length > 0) {
-  //       currentLI[0].className = currentLI[0].className.replace(" active", "");
-  //     }
-  //     this.className += " active";
-  //   });
-  // }
-
-  // const bookList = results.items;
-  console.log(bookList);
 }
 
 // function createPagination(json) {
@@ -200,11 +153,30 @@ function displayResults(results) {
 //     let _previousIndex = _startIndex;
 //     _startIndex = _startIndex + _maxResults;
 
-// for (var i = 0, len = g.children.length; i < len; i++)
-// {
+//CREATING ADDITIONAL CARD DIVS TO HOLD EACH CARD DETAIL....OR SHOULD I ONLY NEED ONE AND JUST CONDITIONAL RETURN?
+// const additionalDivs = document.createElement("div");
+// outputList.insertAdjacentElement("beforeend", additionalDivs);
+// additionalDivs.classList.add("card");
+// additionalDivs.style.width = "18em";
 
-//     (function(index){
-//         g.children[i].onclick = function(){
-//               alert(index)  ;
-//         }
-//     })(i);
+// bookList.forEach(() => {
+//   cardRow.appendChild(detailsCard);
+// });
+// cardRow.appendChild(detailsCard);
+
+// for (let i = 0; i < book.length; i++) {
+//   book.onclick = function () {
+//     console.log(book);
+//   };
+// }
+
+// book.addEventListener("mouseover", function () {
+//   if (bookList.length > 0) {
+//     detailsCard.style.visibility = "visible";
+//   }
+// });
+// book.addEventListener("mouseout", function () {
+//   if (bookList.length > 0) {
+//     detailsCard.style.visibility = "hidden";
+//   }
+// });
