@@ -34,6 +34,7 @@ nav ul li {
   float: right;
   text-decoration: none;
   color: black;
+  margin-top: 0.5rem;
 }
 /* 
 .nav-link:hover {
@@ -42,6 +43,11 @@ nav ul li {
 
 #brand .nav-link {
   font-size: 14pt;
+}
+#brandId {
+  height: 50px;
+  width: 100px;
+  margin-top: 0rem;
 }
 #brandId:hover {
   color: black;
@@ -62,7 +68,7 @@ nav ul li {
   width: 400px;
   display: block;
   margin: 0 auto;
-  margin-bottom: 1rem;
+  margin-bottom: -0.6rem;
 }
 #search {
   left: 0%;
