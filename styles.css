@@ -5,7 +5,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: "Muli", sans-serif;
+  font-family: "muli", sans-serif !important;
 }
 .navbar {
   position: fixed;
@@ -87,12 +87,13 @@ li {
 }
 
 .text-text {
-  margin-left: 0.8em;
+  margin-left: 0.9em;
 }
 .card {
   /* visibility: hidden; */
-  margin-left: 5rem;
+  margin-left: 8rem;
   width: 500px;
+  margin-bottom: 2rem;
 }
 
 /* #list-group:hover + .card {
@@ -109,6 +110,7 @@ li {
 .card-img-top {
   height: 200px;
   width: 40px;
+  margin-bottom: -1rem;
 }
 /* 
 .btn btn-primary {
@@ -119,19 +121,28 @@ li {
 } */
 .btn-primary:last-child {
   position: relative;
-  left: 15%;
+  left: 14%;
   align-items: center;
   text-align: center;
   margin: 0 auto;
+  font-size: 12px;
 }
 
 .card-title {
   position: relative;
   text-align: center;
+  font-size: 16px;
+  font-weight: bolder;
   margin-bottom: 5px !important;
+}
+.card-author {
+  font-size: 14px;
+  position: relative;
+  text-align: center;
+  font-weight: lighter;
 }
 
 .card-text {
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 0px;
 }
