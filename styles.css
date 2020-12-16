@@ -1,7 +1,7 @@
 body {
   background-image: url(assets/books.jpg);
   background-color: #017199;
-  height: 120vh;
+  height: 130vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -51,13 +51,22 @@ nav ul li {
 #brand .nav-link:hover {
   font-weight: bold;
 } */
-#title {
+/* #title {
   font-size: 3rem;
   margin-bottom: 0.5rem;
   font-weight: bolder;
+} */
+
+#title {
+  height: 100px;
+  width: 400px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1rem;
 }
 #search {
   left: 0%;
+  background: #0680a5;
 }
 .book-list {
   margin-top: 50px;
@@ -97,7 +106,7 @@ li {
   margin-left: 8rem;
   width: 500px;
   margin-bottom: 2rem;
-  box-shadow: 6px 8px 3rem 0px;
+  box-shadow: 5px 0px 2rem 0px;
 }
 .card:hover {
   transform: scale(1.01);
@@ -166,10 +175,14 @@ li {
   margin-bottom: 1rem;
   border: none;
 }
-.next,
-.prev:hover {
+
+.prev:hover,
+.next:hover {
   color: grey;
+  transform: scale(1.5);
+  cursor: pointer;
 }
+
 #pagination {
   display: inline-block;
 }
