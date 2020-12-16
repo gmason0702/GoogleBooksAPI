@@ -66,6 +66,7 @@ nav ul li {
 #list-group {
   opacity: 0.5;
   max-width: 40vw;
+  margin-bottom: 3rem;
 }
 .list-group-item:hover {
   background: #72afb7;
@@ -87,15 +88,20 @@ li {
 }
 
 .text-text {
-  margin-left: 0.9em;
+  font-size: 18px;
+  font-weight: bolder;
+  /* margin-left: 2.1em; */
 }
 .card {
   /* visibility: hidden; */
   margin-left: 8rem;
   width: 500px;
   margin-bottom: 2rem;
+  box-shadow: 6px 8px 3rem 0px;
 }
-
+.card:hover {
+  transform: scale(1.01);
+}
 /* #list-group:hover + .card {
   display: block;
   visibility: visible;
@@ -145,4 +151,31 @@ li {
 .card-text {
   font-size: 12px;
   margin-top: 0px;
+}
+.prev {
+  /* margin-left: 1.8rem; */
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border: none;
+}
+.next {
+  background-color: transparent;
+  /* margin-left: 16.5rem; */
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  border: none;
+}
+.next,
+.prev:hover {
+  color: grey;
+}
+#pagination {
+  display: inline-block;
+}
+
+#pagCenter {
+  display: inline-block;
+  margin-left: 6rem;
+  margin-top: 2rem;
 }
