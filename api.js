@@ -7,15 +7,15 @@ const cardRow = document.getElementById("card__row");
 const nextBtn = document.querySelector(".next");
 const previousBtn = document.querySelector(".prev");
 const detailsCard = document.querySelector(".card");
+const navigation = document.getElementById("pagination");
 const baseUrl = "https://www.googleapis.com/books/v1/volumes?q=";
 const placeHolder =
   "https://voice.global/wp-content/plugins/wbb-publications/public/assets/img/placeholder.jpg";
-let _maxResults = 10;
-let _startIndex = 0;
-let _totalResults = 0;
+let maxResults = 10;
+let startIndex = 0;
+let totalResults = 0;
+const index = `&startIndex=${startIndex}`;
 
-// nextBtn.addEventListener("click", nextPage);
-// previousBtn.addEventListener("click", previousPage);
 searchButton.addEventListener("click", submitSearch);
 
 searchButton.addEventListener("keypress", function (e) {
@@ -25,7 +25,6 @@ searchButton.addEventListener("keypress", function (e) {
   }
 });
 let pageNumber = 0;
-
 bookListId.style.visibility = "hidden";
 detailsCard.style.visibility = "hidden";
 
@@ -38,8 +37,8 @@ function fetchResults(e) {
   // dispBooks.innerHTML = "";
   detailsCard.innerHTML = "";
 
-  url = baseUrl + searchBox.value;
-
+  url = baseUrl + searchBox.value + index;
+  console.log(url);
   fetch(url)
     .then(function (result) {
       return result.json();
@@ -99,8 +98,7 @@ function displayResults(results) {
     book.innerHTML = current.volumeInfo.title;
     dispBooks.appendChild(book);
 
-    //TRYING TO GET EACH LI ELEMENT ON CLICK
-
+    //TGET EACH LI ELEMENT ON CLICK
     book.onclick = function () {
       if (book.innerHTML == cardTitle.innerHTML) {
         detailsCard.innerHTML = "";
@@ -148,10 +146,27 @@ function displayResults(results) {
   }
 }
 
-// function createPagination(json) {
-//   if (_startIndex == 0 && _totalResults > _maxResults) {
-//     let _previousIndex = _startIndex;
-//     _startIndex = _startIndex + _maxResults;
+// nextBtn.addEventListener("click", nextPage);
+// previousBtn.addEventListener("click", previousPage);
+
+// if (startIndex === 0) {
+//   navigation.style.display = "block";
+//   nextBtn.style.display = "block";
+//   previousBtn.style.visibility = "hidden";
+// }
+
+// function nextPage(e) {
+//   startIndex++;
+//   fetchResults(e);
+// }
+// function previousPage() {
+//   if (startIndex > 0) {
+//     startIndex--;
+//   } else {
+//     return;
+//   }
+//   fetchResults(e);
+// }
 
 //CREATING ADDITIONAL CARD DIVS TO HOLD EACH CARD DETAIL....OR SHOULD I ONLY NEED ONE AND JUST CONDITIONAL RETURN?
 // const additionalDivs = document.createElement("div");
@@ -180,3 +195,16 @@ function displayResults(results) {
 //     detailsCard.style.visibility = "hidden";
 //   }
 // });
+
+// if (startIndex === 0) {
+//   navigation.style.display = "block";
+//   nextBtn.style.display = "block";
+//   previousBtn.style.display = "none";
+// } else if (startIndex > 0) {
+//   previousBtn.style.display = "block";
+//   nextBtn.stye.display = "block";
+// } else {
+//   nextBtn.style.display = "none";
+//   previousBtn.style.display = "block";
+//   navigation.style.display = "block";
+// }
