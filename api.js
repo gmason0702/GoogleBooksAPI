@@ -14,7 +14,6 @@ const placeHolder =
 let maxResults = 10;
 let startIndex = 0;
 let totalResults = 0;
-const index = `&startIndex=${startIndex}`;
 
 searchButton.addEventListener("click", submitSearch);
 
@@ -29,14 +28,15 @@ bookListId.style.visibility = "hidden";
 detailsCard.style.visibility = "hidden";
 
 function submitSearch(e) {
+  startIndex = 0;
   fetchResults(e);
   detailsCard.style.visibility = "hidden";
 }
 
 function fetchResults(e) {
-  // dispBooks.innerHTML = "";
   detailsCard.innerHTML = "";
-
+  const index = `&startIndex=${startIndex}`;
+  console.log(index);
   url = baseUrl + searchBox.value + index;
   console.log(url);
   fetch(url)
@@ -46,9 +46,10 @@ function fetchResults(e) {
     .then(function (json) {
       console.log(json);
       displayResults(json);
-      //   createPagination(json);
     });
 }
+nextBtn.addEventListener("click", nextPage);
+previousBtn.addEventListener("click", previousPage);
 
 function displayResults(results) {
   //REFRESHING PAGE EACH SEARCH CLICK
@@ -58,6 +59,19 @@ function displayResults(results) {
   const bookList = results.items;
   detailsCard.innerHTML = "";
 
+  if (startIndex === 0) {
+    navigation.style.display = "inline-block";
+    nextBtn.style.display = "inline-block";
+    previousBtn.style.visibility = "hidden";
+  } else if (startIndex > 0) {
+    nextBtn.style.display = "inline-block";
+    previousBtn.style.display = "inline-block";
+    previousBtn.style.visibility = "visible";
+  } else {
+    navigation.style.display = "inline-block";
+    nextBtn.style.visibility = "hidden";
+    previousBtn.style.display = "inline-block";
+  }
   //CHANGING VISIBILITY OF UL ELEMENT BASED ON RETURN VALUE
   if (bookList.length != 0 || bookList.length != null) {
     bookListId.style.visibility = "visible";
@@ -98,7 +112,7 @@ function displayResults(results) {
     book.innerHTML = current.volumeInfo.title;
     dispBooks.appendChild(book);
 
-    //TGET EACH LI ELEMENT ON CLICK
+    //GET EACH LI ELEMENT ON CLICK
     book.onclick = function () {
       if (book.innerHTML == cardTitle.innerHTML) {
         detailsCard.innerHTML = "";
@@ -118,55 +132,45 @@ function displayResults(results) {
       bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
       bookImage.alt = placeHolder;
     } else {
-      bookImage.src.innerHTML = placeHolder; //might not need the .innerHTML
+      bookImage.src.innerHTML = placeHolder;
       bookImage.alt.innerHTML = placeHolder;
     }
     cardTitle.innerHTML = `${current.volumeInfo.title}`;
     cardAuthor.innerHTML = `By   ${current.volumeInfo.authors}`;
     cardBlurb.innerHTML = `${current.volumeInfo.description}`;
-    // previousBtn.innerText = ??
     previewBtn.href = current.volumeInfo.previewLink;
     previewBtn.setAttribute("target", "_blank");
     previewBtn.textContent = "Preview this book";
+
     let maxLength = 200;
     if (cardBlurb.innerHTML.length > maxLength) {
       cardBlurb.innerHTML = cardBlurb.innerHTML
         .slice(0, maxLength)
         .concat("...");
     }
-    // console.log(book);
-    // console.log(cardTitle);
-    // console.log(cardBlurb);
-    // console.log(bookImage);
+
     book.addEventListener("click", function () {
       if (bookList.length > 0) {
         detailsCard.style.visibility = "visible";
-      } // how to add an eventListener to an element that doesn't exist yet
+      }
     });
   }
 }
 
-// nextBtn.addEventListener("click", nextPage);
-// previousBtn.addEventListener("click", previousPage);
-
-// if (startIndex === 0) {
-//   navigation.style.display = "block";
-//   nextBtn.style.display = "block";
-//   previousBtn.style.visibility = "hidden";
-// }
-
-// function nextPage(e) {
-//   startIndex++;
-//   fetchResults(e);
-// }
-// function previousPage() {
-//   if (startIndex > 0) {
-//     startIndex--;
-//   } else {
-//     return;
-//   }
-//   fetchResults(e);
-// }
+function nextPage(e) {
+  detailsCard.style.visibility = "hidden";
+  startIndex++;
+  fetchResults(e);
+}
+function previousPage(e) {
+  detailsCard.style.visibility = "hidden";
+  if (startIndex > 0) {
+    startIndex--;
+    // console.log(startIndex);
+  } else {
+  }
+  fetchResults(e);
+}
 
 //CREATING ADDITIONAL CARD DIVS TO HOLD EACH CARD DETAIL....OR SHOULD I ONLY NEED ONE AND JUST CONDITIONAL RETURN?
 // const additionalDivs = document.createElement("div");
