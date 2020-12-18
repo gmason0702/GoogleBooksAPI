@@ -17,13 +17,13 @@ let totalResults = 0;
 
 searchButton.addEventListener("click", submitSearch);
 
-searchButton.addEventListener("keypress", function (e) {
-  //why not??
+searchBox.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
+    searchButton.click();
     submitSearch;
   }
 });
-let pageNumber = 0;
+
 bookListId.style.visibility = "hidden";
 detailsCard.style.visibility = "hidden";
 
@@ -40,7 +40,6 @@ function submitSearch(e) {
 async function fetchResults(e) {
   detailsCard.innerHTML = "";
   const index = `&startIndex=${startIndex}`;
-  console.log(index);
   url = baseUrl + searchBox.value + index;
   console.log(url);
   await fetch(url)
@@ -63,6 +62,7 @@ function displayResults(results) {
   const bookList = results.items;
   detailsCard.innerHTML = "";
 
+  //PAGINATION CONDITIONAL
   if (startIndex === 0) {
     navigation.style.display = "inline-block";
     nextBtn.style.display = "inline-block";
@@ -87,6 +87,7 @@ function displayResults(results) {
   }
 
   for (let i = 0; i < bookList.length; i++) {
+    //GRABBING CARD DIV
     const detailsCard = document.querySelector(".card");
 
     //CREATING CARD INFORMATION
@@ -133,7 +134,6 @@ function displayResults(results) {
     };
 
     //CHECKING IF BOOK HAS AN IMAGE, RETURNING PLACEHOLDER IF NOT
-
     if (current.volumeInfo.imageLinks == undefined) {
       console.log(bookImage.src.innerHTML);
       bookImage.src = placeHolder;
