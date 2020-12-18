@@ -37,13 +37,13 @@ function submitSearch(e) {
   detailsCard.style.visibility = "hidden";
 }
 
-function fetchResults(e) {
+async function fetchResults(e) {
   detailsCard.innerHTML = "";
   const index = `&startIndex=${startIndex}`;
   console.log(index);
   url = baseUrl + searchBox.value + index;
   console.log(url);
-  fetch(url)
+  await fetch(url)
     .then(function (result) {
       return result.json();
     })
