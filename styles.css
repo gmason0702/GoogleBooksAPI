@@ -70,6 +70,7 @@ nav ul li {
   margin: 0 auto;
   margin-bottom: -0.6rem;
 }
+
 #search {
   left: 0%;
   background: #0680a5;
@@ -208,6 +209,6 @@ li {
 
 #pagCenter {
   display: inline-block;
-  margin-left: 6rem;
+  margin-left: 2rem;
   margin-top: 2rem;
 }
