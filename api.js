@@ -133,13 +133,16 @@ function displayResults(results) {
     };
 
     //CHECKING IF BOOK HAS AN IMAGE, RETURNING PLACEHOLDER IF NOT
-    if (current.volumeInfo.imageLinks.smallThumbnail != null) {
+
+    if (current.volumeInfo.imageLinks == undefined) {
+      console.log(bookImage.src.innerHTML);
+      bookImage.src = placeHolder;
+      bookImage.alt.innerHTML = placeHolder;
+    } else {
       bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
       bookImage.alt = placeHolder;
-    } else {
-      bookImage.src.innerHTML = placeHolder;
-      bookImage.alt.innerHTML = placeHolder;
     }
+
     cardTitle.innerHTML = `${current.volumeInfo.title}`;
     cardAuthor.innerHTML = `By   ${current.volumeInfo.authors}`;
     // cardBlurb.innerHTML = `${current.volumeInfo.description}`;
