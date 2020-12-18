@@ -15,6 +15,7 @@ let maxResults = 10;
 let startIndex = 0;
 let totalResults = 0;
 
+//SEACH EVENT LISENERS
 searchButton.addEventListener("click", submitSearch);
 
 searchBox.addEventListener("keypress", function (e) {
@@ -24,6 +25,11 @@ searchBox.addEventListener("keypress", function (e) {
   }
 });
 
+//PAGINATION EVENT LISTENERS
+nextBtn.addEventListener("click", nextPage);
+previousBtn.addEventListener("click", previousPage);
+
+//KEEP LIST AND CARDS INVISIBIBLE UNTIL SEARCH/CLICK
 bookListId.style.visibility = "hidden";
 detailsCard.style.visibility = "hidden";
 
@@ -51,8 +57,6 @@ async function fetchResults(e) {
       displayResults(json);
     });
 }
-nextBtn.addEventListener("click", nextPage);
-previousBtn.addEventListener("click", previousPage);
 
 function displayResults(results) {
   //REFRESHING PAGE EACH SEARCH CLICK
@@ -142,7 +146,7 @@ function displayResults(results) {
       bookImage.src = `${current.volumeInfo.imageLinks.smallThumbnail}`;
       bookImage.alt = placeHolder;
     }
-
+    //ADDING ELEMENT CONTENT
     cardTitle.innerHTML = `${current.volumeInfo.title}`;
     cardAuthor.innerHTML = `By   ${current.volumeInfo.authors}`;
     // cardBlurb.innerHTML = `${current.volumeInfo.description}`;
@@ -164,6 +168,7 @@ function displayResults(results) {
         .concat("...");
     }
 
+    //LIST ITEM EVENT LISTENER, DISPLAYING DETAILS CARD ON CLICK
     book.addEventListener("click", function () {
       if (bookList.length > 0) {
         detailsCard.style.visibility = "visible";
