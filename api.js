@@ -28,6 +28,10 @@ bookListId.style.visibility = "hidden";
 detailsCard.style.visibility = "hidden";
 
 function submitSearch(e) {
+  if (searchBox.value == "" || searchBox.value == null) {
+    console.log(searchBox.value);
+    alert("Oops! Please enter a valid search.");
+  }
   startIndex = 0;
   fetchResults(e);
   detailsCard.style.visibility = "hidden";
@@ -103,6 +107,7 @@ function displayResults(results) {
 
     const previewBtn = document.createElement("a");
     previewBtn.classList.add("btn", "btn-primary");
+    previewBtn.id = "cardButton";
 
     //CREATING LIST ITEMS
     const book = document.createElement("li");
@@ -137,7 +142,14 @@ function displayResults(results) {
     }
     cardTitle.innerHTML = `${current.volumeInfo.title}`;
     cardAuthor.innerHTML = `By   ${current.volumeInfo.authors}`;
-    cardBlurb.innerHTML = `${current.volumeInfo.description}`;
+    // cardBlurb.innerHTML = `${current.volumeInfo.description}`;
+
+    if (current.volumeInfo.description == undefined) {
+      cardBlurb.innerHTML = "No description available...";
+      cardBlurb.style.marginTop = "3rem";
+    } else {
+      cardBlurb.innerHTML = `${current.volumeInfo.description}`;
+    }
     previewBtn.href = current.volumeInfo.previewLink;
     previewBtn.setAttribute("target", "_blank");
     previewBtn.textContent = "Preview this book";

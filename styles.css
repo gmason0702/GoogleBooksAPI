@@ -78,6 +78,12 @@ nav ul li {
   margin-top: 50px;
   visibility: hidden;
 }
+
+#list-output {
+  position: relative;
+  margin: 0 auto;
+  align-items: center;
+}
 #list-group {
   opacity: 0.5;
   max-width: 40vw;
@@ -105,14 +111,15 @@ li {
 .text-text {
   font-size: 18px;
   font-weight: bolder;
+
   /* margin-left: 2.1em; */
 }
 .card {
   /* visibility: hidden; */
-  margin-left: 8rem;
+  margin-left: 1rem;
   width: 500px;
   margin-bottom: 2rem;
-  box-shadow: 5px 0px 2rem 0px;
+  box-shadow: 5px 10px 1rem grey;
 }
 .card:hover {
   transform: scale(1.01);
@@ -131,30 +138,36 @@ li {
 .card-img-top {
   height: 200px;
   width: 40px;
-  margin-bottom: -1rem;
+  margin-bottom: 0rem;
+  border-bottom: 2px solid black;
 }
-/* 
-.btn btn-primary {
+
+/* .btn btn-primary {
   position: relative;
   align-items: center;
   text-align: center;
   margin: 0 auto;
 } */
-.btn-primary:last-child {
-  position: relative;
-  left: 14%;
+#cardButton {
+  position: absolute;
+  left: 21%;
   align-items: center;
   text-align: center;
   margin: 0 auto;
   font-size: 12px;
+  bottom: 0px;
+  margin-bottom: 1rem;
 }
-
+.card-body {
+  background: #fcfbf2;
+}
 .card-title {
   position: relative;
   text-align: center;
   font-size: 16px;
   font-weight: bolder;
   margin-bottom: 5px !important;
+  margin-top: -0.75rem;
 }
 .card-author {
   font-size: 14px;
