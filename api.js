@@ -179,13 +179,13 @@ function displayResults(results) {
 
 function nextPage(e) {
   detailsCard.style.visibility = "hidden";
-  startIndex++;
+  startIndex += 10;
   fetchResults(e);
 }
 function previousPage(e) {
   detailsCard.style.visibility = "hidden";
   if (startIndex > 0) {
-    startIndex--;
+    startIndex -= 10;
     // console.log(startIndex);
   } else {
   }
